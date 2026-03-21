@@ -3,15 +3,6 @@
 Commit vui lòng bằng tiếng anh để dễ xử lí
 
 - Cú pháp: 
-`type_commit(tên file hoặc nếu nhiều tên file thì ghi tên module chính): thay đổi`
-
-- Commit nếu thêm tính năng mới
-- Ví dụ:
-`feat# Quy tắc commit
-
-Commit vui lòng bằng tiếng anh để dễ xử lí
-
-- Cú pháp: 
 
 `type_commit(tên file hoặc nếu nhiều tên file thì ghi tên module chính): thay đổi`
 
