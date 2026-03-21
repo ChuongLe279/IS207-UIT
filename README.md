@@ -50,7 +50,7 @@ Dưới đây là danh sách thành viên của **Nhóm 2**
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/versenilvis"><img src="https://avatars.githubusercontent.com/u/95265895?v=4" width="100px;"/><br /><sub><b>Nguyễn Trọng Hoàng</b></sub></a><br /</td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/"><img src="" width="100px;" /><br /><sub><b>Nguyễn Đức Nhân</b></sub></a><br /></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/kstuv"><img src="https://avatars.githubusercontent.com/u/189011035?v=4" width="100px;"/><br /><sub><b>Lê Nguyên Khang</b></sub></a><br /></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/chanbidu"><img src="https://avatars.githubusercontent.com/u/246057196?v=4" width="100px;"/><br /><sub><b>Zebra2711</b></sub></a><br /></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/chanbidu"><img src="https://avatars.githubusercontent.com/u/246057196?v=4" width="100px;"/><br /><sub><b>Đinh Lê Huy Hoàng</b></sub></a><br /></td>
     </tr>
   </table>
 </div>
