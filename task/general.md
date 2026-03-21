@@ -8,7 +8,7 @@
 |---|------|-----------------|-----------|----------|---------|
 | 1 | Khởi tạo repo, setup cấu trúc thư mục | Leader | ✅ | - | đã xong |
 | 2 | Viết quy tắc làm việc (commit, PR, docs) | Leader | ✅ | - | đã xong |
-| 3 | Research + lập kế hoạch, chia task | Leader | 🔄 | - | đang làm |
+| 3 | Research + lập kế hoạch, chia task | Leader + Manager | ✅ | - | đã xong |
 | 4 | Cả team đọc hiểu quy tắc + kiến thức nền | All | ⬚ | - | mỗi người đọc phần research liên quan |
 
 ## Phase 2: Core Drawing
