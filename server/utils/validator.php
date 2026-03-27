@@ -1,1 +1,2 @@
-<!-- validate input để chống sql injection, ... -->
+<?php
+// kiểm tra ràng buộc định dạng dữ liệu đầu vào

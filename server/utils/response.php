@@ -1,1 +1,2 @@
-<!-- json() và error() helper,... -->
+<?php
+// response json & helpers

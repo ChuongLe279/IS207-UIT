@@ -1,1 +1,2 @@
-<!-- xử lí logic api cho user: login, logout, register, ... -->
+<?php
+// xử lí logic api cho user: login, logout, register, ...

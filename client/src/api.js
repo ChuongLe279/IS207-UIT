@@ -1,1 +1,1 @@
-//  các hàm fetch gọi lên server
+// file dùng chung để gọi fetch/axios lên server php
