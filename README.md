@@ -70,7 +70,8 @@ Dưới đây là danh sách thành viên của **Nhóm 2**
 
 
 ## Tài liệu
-Tài liệu bao gồm cả tài liệu source code cũng như các tài liệu khác về việc quản lí của nhóm, các hướng dẫn, quản lí các task, ...
+Tài liệu bao gồm cả tài liệu source code cũng như các tài liệu khác về việc quản lí của nhóm, các hướng dẫn, quản lí các task, ...  
+Ngoài ra các bạn cũng có thể tham khảo cách bọn mình làm việc và chia việc
 
 Chi tiết [tại đây](./docs)
 
