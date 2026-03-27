@@ -1,7 +1,7 @@
 <div align="center">
 
-  <h1 align="center">Virtual whiteboard</h1>
-  <p><b>Bảng trắng online hỗ trợ tạo ra các sơ đồ, bản phác thảo với đa dạng hình học, có thể vẽ tay một cách đẹp mắt</b></p>
+  <h1 align="center">PrepHub</h1>
+  <p><b>Nền tảng test các kỹ năng TOEIC online nhanh chóng, tiện lợi</b></p>
 
   [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
   [![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
@@ -48,7 +48,7 @@ Dưới đây là danh sách thành viên của **Nhóm 2**
 <div align="center">
   <table>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/"><img src="" width="100px;"/><br /><sub><b>Lê Bửu Chương</b></sub></a><br /></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ChuongLe279"><img src="https://avatars.githubusercontent.com/u/223984853?v=4" width="100px;"/><br /><sub><b>Lê Bửu Chương</b></sub></a><br /></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/versenilvis"><img src="https://avatars.githubusercontent.com/u/95265895?v=4" width="100px;"/><br /><sub><b>Nguyễn Trọng Hoàng</b></sub></a><br /</td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/"><img src="" width="100px;" /><br /><sub><b>Nguyễn Đức Nhân</b></sub></a><br /></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/kstuv"><img src="https://avatars.githubusercontent.com/u/189011035?v=4" width="100px;"/><br /><sub><b>Lê Nguyên Khang</b></sub></a><br /></td>
@@ -70,7 +70,8 @@ Dưới đây là danh sách thành viên của **Nhóm 2**
 
 
 ## Tài liệu
-Tài liệu bao gồm cả tài liệu source code cũng như các tài liệu khác về việc quản lí của nhóm, các hướng dẫn, quản lí các task, ...
+Tài liệu bao gồm cả tài liệu source code cũng như các tài liệu khác về việc quản lí của nhóm, các hướng dẫn, quản lí các task, ...  
+Ngoài ra các bạn cũng có thể tham khảo cách bọn mình làm việc và chia việc
 
 Chi tiết [tại đây](./docs)
 

@@ -1,48 +1,69 @@
-# Project folder structure
+# project folder structure
 
-whiteboard/
+prephub/
 ├── client/                # frontend (vanilla js + bootstrap)
-│   ├── index.html         # entry point
+│   ├── index.html         # entry point (trang chủ)
 │   ├── src/
-│   │   ├── main.js        # khởi tạo app & event listeners
-│   │   ├── canvas.js      # core logic vẽ (rough.js, render loop)
-│   │   ├── state.js       # quản lí elements[], history, selectedId
-│   │   ├── math.js        # thuật toán hit testing, coordinates
-│   │   ├── api.js         # các hàm fetch gọi lên server
-│   │   ├── components/    # ui components (toolbar, sidebar, v.v)
-│   │   └── utils/         # helper functions (uuid, debounce, v.v)
+│   │   ├── main.js        # khởi tạo app, router đơn giản chuyển trang
+│   │   ├── api.js         # file dùng chung để gọi fetch/axios lên server php
+│   │   ├── exam.js        # logic thi toeic (thời gian, highlight, chuyển câu)
+│   │   ├── admin.js       # logic dashboard admin (form tạo đề, import json/excel)
+│   │   ├── auth.js        # logic login, register, lưu auth token
+│   │   └── components/    # ui components (sidebar, modal kết quả, part 1-7)
 │   ├── styles/
-│   │   └── main.css       # bootstrap & custom styles
-│   ├── package.json       # quản lí dependencies (rough.js, bootstrap)
-│   └── bun.lockb          # bunjs
+│   │   └── main.css       # bootstrap custom, styles cho highlight, đáp án
+│   ├── assets/
+│   │   ├── audios/        # file mp3 listening part 1-4
+│   │   └── images/        # ảnh part 1, part 3, 4, 7
+│   └── package.json       # cấu hình dependencies (để chạy bun install)
 │
-├── server/                # backend (php thuần)
-│   ├── index.php          # entry point & router
-│   ├── db/
-│   │   └── mysql.php      # kết nối pdo mysql
-│   ├── controllers/       # xử lí logic api
+├── server/                # backend api (php thuần)
+│   ├── Dockerfile         # file thiết lập môi trường php-apache
+│   ├── index.php          # entry point & api router (điều hướng request)
+│   ├── config/
+│   │   └── database.php   # kết nối pdo mysql
+│   ├── controllers/       # xử lý logic các api endpoint
 │   │   ├── auth-controller.php
-│   │   └── board-controller.php
-│   ├── models/            # làm việc trực tiếp với database
+│   │   ├── test-controller.php
+│   │   └── score-controller.php
+│   ├── models/            # tương tác trực tiếp với db thông qua pdo
 │   │   ├── user.php
-│   │   └── board.php
-│   ├── middleware/        # kiểm tra auth, validate
+│   │   ├── test.php
+│   │   ├── question.php
+│   │   ├── attempt.php
+│   │   └── payment.php    # đối tượng xử lý việc check khóa đề auth
+│   ├── middleware/        # kiểm tra vòng bảo mật token, phân quyền rbac
 │   │   └── auth.php
-│   └── utils/             # response & validator helpers
+│   └── utils/             # response json & helpers
 │       ├── response.php
 │       └── validator.php
 │
-├── docs/                  # tài liệu dự án (đã hoàn thành)
-│   ├── README.md          # mục lục tổng
-│   ├── research/          # kiến thức nền (system, frontend, backend, db)
-│   ├── guide/             # quy tắc (commit, pr, general, docs)
-│   └── code/              # template & prompt viết docs cho hàm
+├── docs/                  # tài liệu dự án tổng hợp
+│   ├── code/
+│   │   └── folder-structure.md # sơ đồ cây thư mục đang xem này
+│   ├── guide/             # thư viện các quy tắc chuẩn làm việc cho team
+│   │   ├── README.md           # guide tổng cách clone source và set up
+│   │   ├── commit.md           # chuẩn đánh dẫu chữ github commit
+│   │   ├── docs.md             # chuẩn quy tắc viết document cho team
+│   │   ├── pull-request.md     # chuẩn workflow đẩy code (no merge main)
+│   │   └── workflow.md         # luồng thao tác kéo code origin/upstream
+│   └── research/          # các bài viết nghiên cứu base (vd: features.md cũ)
 │
-├── task/                  # quản lí tiến độ (đã hoàn thành)
-│   ├── general.md         # checklist phase & xoay tua
-│   ├── api.md             # thiết kế bảng endpoint chi tiết
-│   ├── client.md          # task cho 3 fe dev
-│   ├── server.md          # task cho be dev
-│   └── db.md              # task cho db dev
+├── task/                  # khu vực theo dõi phân đồ tiến độ công việc
+│   ├── core/              # bản vẽ thiết kế sơ sở nền tảng cứng cho lập trình viên
+│   │   ├── api.md
+│   │   ├── client.md
+│   │   ├── db.md
+│   │   └── server.md
+│   ├── features.md        # bảng kê phân rã chức năng toàn cục của web
+│   ├── general.md         # list khó khăn chung, khối lượng, thông tin dead-line
+│   ├── p1.md              # log công việc và tick cho backend/db
+│   ├── p2.md              # log công việc exam ui 
+│   ├── p3.md              # log công việc form admin ui
+│   ├── p4.md              # log công việc module scoring tự chấm 
+│   └── p5.md              # log công việc mảng thanh toán mock integration
 │
-└── .gitignore             # loại bỏ node_modules, config nhạy cảm
+├── docker-compose.yml     # file tổng quản tự động dựng 3 node mysql, php và bun
+├── Makefile               # tệp config tổ hợp chuỗi phím rảnh tay (make up, make down)
+├── .env.example           # form trắng chia sẻ cho clone git biến db
+└── .gitignore             # loại trừ che giấu file .env thật tránh dính rò rỉ mã bảo mật
