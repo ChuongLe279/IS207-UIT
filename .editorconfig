@@ -1,5 +1,5 @@
 # please install Editor Config extension and follow my rules
-# bunx prettier --write "src/**/*.ts" "tests/**/*.ts"
+# bunx prettier --write "client/src/*.js" "client/*.html" "server/*.php"
 root = true
 
 [*]
