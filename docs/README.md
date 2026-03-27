@@ -1,39 +1,26 @@
-# Mục lục tổng
+# Mục lục tổng tài liệu dự án PrepHub
 
-## Research (kiến thức nền tảng)
-
-| File | Mô tả |
-|------|--------|
-| [system.md](research/system.md) | system design tổng thể, data flow, component diagram |
-| [frontend.md](research/frontend.md) | HTML5 Canvas, Rough.js, state management, hit testing |
-| [backend.md](research/backend.md) | PHP, REST API, session, validation |
-| [db.md](research/db.md) | MySQL, thiết kế bảng, JSON storage strategy |
-
-## Guide (quy tắc làm việc)
+## 1. Plan (kiến trúc & thiết kế)
 
 | File | Mô tả |
 |------|--------|
-| [general.md](guide/general.md) | quy tắc chung của team |
-| [commit.md](guide/commit.md) | quy ước đặt tên commit |
-| [pull-request.md](guide/pull-request.md) | quy trình tạo và review PR |
-| [docs.md](guide/docs.md) | quy tắc viết documentation |
+| [system.md](plan/system.md) | Kiến trúc tổng thể hệ thống, sơ đồ C-S, API overview và luồng xử lý nghiệp vụ chung |
+| [features.md](plan/features.md) | Bảng phân rã chi tiết module và trọn bộ checklist nhóm tính năng cần làm |
 
-## Code docs
+## 2. Guide (quy tắc làm việc của team)
 
 | File | Mô tả |
 |------|--------|
-| [TEMPLATE.md](code/TEMPLATE.md) | template mẫu để viết docs cho code |
-| [PROMPT.md](code/PROMPT.md) | prompt AI để sinh docs tự động |
-| `code/client/` | docs cho từng file frontend |
-| `code/server/` | docs cho từng file backend |
-| `code/db/` | docs cho database (ERD, schema) |
+| [README.md](guide/README.md) | Hướng dẫn chung phương thức pull nhánh khởi tạo hệ thống môi trường lần đầu |
+| [workflow.md](guide/workflow.md) | Chi tiết luồng thao tác kéo push code upstream cá nhân |
+| [commit.md](guide/commit.md) | Chuẩn quy ước cấu trúc ghi chú chữ commit trên github |
+| [pull-request.md](guide/pull-request.md) | Luật bắt buộc khi tạo PR và cách thức ngăn merge thẳng dính conflict vào dev/main |
+| [docs.md](guide/docs.md) | Các quy định ngầm định cách hành văn khi giải nghĩa code |
 
-## Task
+## 3. Code docs (giải nghĩa hệ thống thư mục)
 
 | File | Mô tả |
 |------|--------|
-| [general.md](../task/general.md) | checklist tổng theo từng phase |
-| [client.md](../task/client.md) | task chi tiết cho 3 FE dev |
-| [server.md](../task/server.md) | task chi tiết cho BE dev |
-| [db.md](../task/db.md) | task chi tiết cho DB dev |
-| [api.md](../task/api.md) | bảng API design chi tiết |
+| [folder-structure.md](code/folder-structure.md) | Bản đồ chi tiết vẽ cây ý nghĩa các thư mục dự án tính tới hiện tại |
+| [TEMPLATE.md](code/TEMPLATE.md) | Bộ form chuẩn giúp mọi người copy tự viết docs lý giải chức năng hàm do mình code |
+| [PROMPT.md](code/PROMPT.md) | Câu lệnh nhắc (prompts) mẫu dành để đưa vào AI nhờ sinh code docs tự động |
