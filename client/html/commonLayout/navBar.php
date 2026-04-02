@@ -7,7 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <title>Document</title>
-  <link rel="stylesheet" href="commonLayoutCSS.css">
+  <link rel="stylesheet" href="./commonLayout/commonLayoutCSS.css">
 </head>
 <style>
   .nav-link.btn.btn-outline-light.ms-lg-3.px-4:hover:hover {
@@ -33,8 +33,8 @@
           <li class="nav-item"><a class="nav-link" href="#">Danh sách đề thi</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Lịch sử</a></li>
           <li class="nav-item">
-            <a class="nav-link btn btn-outline-light ms-lg-3 px-4" href="/client/html/registerLogin.php">
-              Đăng nhập <i class="fas fa-sign-in-alt ms-2"></i>
+            <a class="nav-link btn btn-outline-light ms-lg-3 px-4" href="../../server/controllers/log-out.php">
+              Đăng xuất <i class="fas fa-sign-in-alt ms-2"></i>
             </a>
           </li>
         </ul>
