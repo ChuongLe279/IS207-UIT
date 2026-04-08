@@ -25,7 +25,7 @@ if (isset($_POST['register'])) {
 		$stmt->execute(['email' => $email]);
 
 		if ($stmt->fetch()) {
-			$_SESSION['register_error'] = 'Email is already registered!';
+			$_SESSION['register_error'] = 'Email này đã được đăng ký!';
 			$_SESSION['active_form'] = 'register';
 		} else {
 			$insert = $conn->prepare("INSERT INTO users (uuid, first_name, last_name, email, password) VALUES (:uuid, :first_name, :last_name, :email, :password)");
@@ -36,6 +36,7 @@ if (isset($_POST['register'])) {
 				'email' => $email,
 				'password' => $password
 			]);
+			$_SESSION['register_success'] = 'Đăng ký thành công! Vui lòng đăng nhập.';
 		}
 	} catch (PDOException $e) {
 		die("Error: " . $e->getMessage());
@@ -70,7 +71,7 @@ if (isset($_POST['login'])) {
 	}
 
 	// Nếu nhập sai mật khẩu thì chuyển tới home.php
-	$_SESSION['login_error'] = 'Incorrect email or password';
+	$_SESSION['login_error'] = 'Email hoặc mật khẩu không chính xác';
 	$_SESSION['active_form'] = 'login';
 	header("Location: ../../client/pages/login.php");
 	exit();
