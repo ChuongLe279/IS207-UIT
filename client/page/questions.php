@@ -9,12 +9,10 @@
 </head>
 
 <body>
+    <?php include('./componants/navBar.php'); ?>
+    <?php include('./componants/header.php'); ?>
+    
     <div class="container-wrapper">
-        <div class="form-header">
-            <h1>🎓 Nhập Câu Hỏi TOEIC</h1>
-            <p>Nhập câu hỏi đơn hoặc nhóm câu hỏi cho đề thi TOEIC</p>
-        </div>
-
         <!-- Message Display -->
         <div id="messageBox" class="message-box"></div>
 
@@ -1489,5 +1487,7 @@
         }
     </script>
     <script src="../js/api.js"></script>
+    
+    <?php include('./componants/footer.php'); ?>
 </body>
 </html>
