@@ -9,42 +9,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="../styles/style.css">
 </head>
-<style>
-  .nav-link.btn.btn-outline-light.ms-lg-3.px-4:hover:hover {
-    background-color: #14b8a6;
-    color: white;
-  }
-</style>
-<!--http://localhost:81/Web/PrepHub/IS207-UIT/client/page/home.php-->
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="./home.php">
-        <i class="fas fa-graduation-cap me-2"></i>PREPHUB
-      </a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link active" href="#">Trang chủ</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Danh sách đề thi</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Premium</a></li>
-          <li class="nav-item">
-            <a class="nav-link btn btn-outline-light ms-lg-3 px-4" href="login.php">
-              Đăng nhập <i class="fas fa-sign-in-alt ms-2"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <!-- INCLUDE NAVBAR FILE -->
+  <?php include './components/navBar.php'; ?>
   <!-- INCLUDE HEADER FILE -->
-  <?php include './componants/header.php'; ?>
+  <?php include './components/header.php'; ?>
   <main class="container mb-5">
 
     <section id="book-list-section">
@@ -73,7 +44,7 @@
   </main>
 
   <!-- INCLUDE FOOTER FILE -->
-  <?php include './componants/footer.php'; ?>
+  <?php include './components/footer.php'; ?>
 
   <script src="../js/data.js"></script>
   <script src="../js/main.js"></script>
