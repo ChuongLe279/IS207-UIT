@@ -18,8 +18,9 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="./home.php">
-        <i class="fas fa-graduation-cap me-2"></i>PREPHUB
+      <a class="navbar-brand footer-logo fw-bold" href="./home.php">
+        <i class="bx bx-education" style="font-size: 31px;"></i>
+        <span>PREPHUB</span>
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
