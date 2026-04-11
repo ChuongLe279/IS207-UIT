@@ -159,7 +159,10 @@ function getTestCore($id) {
         
         $test['questions'] = $questions;
 
-        sendJson(["test" => $test]);
+        sendJson([
+            "success" => true,
+            "data" => $test
+        ]);
     } catch (PDOException $e) {
         sendError($e->getMessage(), 500);
     }
