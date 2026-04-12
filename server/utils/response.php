@@ -9,5 +9,8 @@ function sendJson($data, $status = 200) {
 }
 
 function sendError($message, $status = 400) {
-    sendJson(["error" => $message], $status);
+    sendJson([
+        "success" => false,
+        "message" => $message
+    ], $status);
 }
