@@ -65,6 +65,56 @@ function getTestList() {
     }
 }
 
+// tạo một bài test mới
+function createTest() {
+    global $conn;
+    try {
+        // Hỗ trợ cả dữ liệu gửi từ Form hoặc từ JSON
+        $input = json_decode(file_get_contents('php://input'), true);
+        
+        $title = $_POST['title'] ?? $input['title'] ?? '';
+        $description = $_POST['description'] ?? $input['description'] ?? '';
+        $is_premium = isset($_POST['is_premium']) ? 1 : ($input['is_premium'] ?? 0);
+        $is_active = isset($_POST['is_active']) ? 1 : ($input['is_active'] ?? 1);
+
+        if (empty($title)) {
+            sendError("Tiêu đề không được để trống", 400);
+        }
+
+        // Tạo đề thi mới với UUID tự động từ MySQL
+        $stmt = $conn->prepare("
+            INSERT INTO tests (uuid, title, description, is_premium, is_active) 
+            VALUES (UUID(), :title, :description, :is_premium, :is_active)
+        ");
+        
+        $stmt->execute([
+            'title' => $title,
+            'description' => $description,
+            'is_premium' => $is_premium,
+            'is_active' => $is_active
+        ]);
+
+        $new_id = $conn->lastInsertId();
+
+        // Lấy lại thông tin đề vừa tạo (để lấy được UUID)
+        $stmt_get = $conn->prepare("SELECT uuid FROM tests WHERE id = ?");
+        $stmt_get->execute([$new_id]);
+        $test_info = $stmt_get->fetch();
+
+        sendJson([
+            "success" => true,
+            "message" => "Tạo đề thi thành công",
+            "data" => [
+                "id" => $test_info['uuid'],
+                "title" => $title
+            ]
+        ]);
+    } catch (PDOException $e) {
+        sendError("Lỗi database: " . $e->getMessage(), 500);
+    }
+}
+
+
 function getTestCore($uuid) {
     global $conn;
     try {

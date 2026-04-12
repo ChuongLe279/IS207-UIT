@@ -17,6 +17,11 @@ if ($method === 'GET') {
     else {
         getTestList();
     }
+} elseif ($method === 'POST') {
+    // POST /api/tests -> Tạo bài thi mới
+    require_once __DIR__ . '/../middleware/auth.php';
+    requireAuth(); 
+    createTest();
 } else {
     sendError("Phương thức không được hỗ trợ cho Tests", 405);
 }
