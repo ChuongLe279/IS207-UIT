@@ -16,7 +16,7 @@ switch ($resource) {
 		break;
 
 	case 'questions':
-		require_once __DIR__ . '/questions_route.php';
+		require_once __DIR__ . '/questions.php';
 		break;
 
 	case 'passages':
