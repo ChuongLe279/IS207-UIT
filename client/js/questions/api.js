@@ -97,7 +97,7 @@ async function loadSavedQuestionsToForm() {
 	AppState.loadedPassageIds.clear();
 
 	try {
-		const response = await fetch(`/api/questions/${testId}`);
+		const response = await fetch(`/api/questions?test_id=${testId}`);
 		if (!response.ok) throw new Error(`HTTP ${response.status}`);
 		const result = await response.json();
 
@@ -128,7 +128,7 @@ async function loadSavedQuestionsToForm() {
 		let passagesMap = {};
 
 		if (groupQuestions.length > 0) {
-			const passagesRes = await fetch(`/api/passages/${testId}`);
+			const passagesRes = await fetch(`/api/passages?test_id=${testId}`);
 			if (passagesRes.ok) {
 				const pResult = await passagesRes.json();
 				if (pResult.success && pResult.data) {
@@ -170,7 +170,7 @@ async function loadSavedQuestionsToForm() {
 	}
 }
 
-async function submitSingleQuestionAPI(block, testId, part) {
+async function submitSingleQuestionAPIWithResult(block, testId, part) {
 	try {
 		const opts = block.querySelectorAll('.options-container .option-item .option-content');
 		const options = { A: opts[0]?.value.trim(), B: opts[1]?.value.trim(), C: opts[2]?.value.trim(), D: opts[3]?.value.trim() };
@@ -183,7 +183,7 @@ async function submitSingleQuestionAPI(block, testId, part) {
 		formData.append('part', part);
 		formData.append('question_number', block.querySelector('.question-number').value);
 		formData.append('content', block.querySelector('.question-content').value.trim() || null);
-		formData.append('correct_answer', block.querySelector('.correct-radio:checked')?.value);
+		formData.append('correct_answer', block.querySelector('.correct-radio:checked')?.value || '');
 		formData.append('explanation', block.querySelector('.explanation').value.trim() || null);
 		formData.append('options', JSON.stringify(options));
 
@@ -196,20 +196,15 @@ async function submitSingleQuestionAPI(block, testId, part) {
 		else if (imageIn?.dataset.existingUrl) formData.append('image_url', imageIn.dataset.existingUrl);
 
 		const response = await fetch('/api/questions', { method: 'POST', body: formData });
-		const result = await response.json();
-
-		if (!result.success) {
-			showMessage(`Lỗi: ${result.message}`, 'error');
-			return false;
-		}
-		return true;
+		return await response.json();
 	} catch (error) {
-		return false;
+		return { success: false, message: error.message };
 	}
 }
 
 async function submitGroupQuestionsAPI(block, testId, part) {
-	let created = 0, errors = 0;
+	let created = 0;
+	let errorMessages = [];
 	try {
 		let passageId = null;
 		const passageContent = block.querySelector('.passage-content').value.trim();
@@ -238,7 +233,7 @@ async function submitGroupQuestionsAPI(block, testId, part) {
 			passageId = pResult.data.passage_id;
 			subQuestions.forEach(sq => delete sq.dataset.questionId);
 		} else {
-			errors++; return { created, errors };
+			return { success: false, created: 0, message: `Lỗi tạo Passage: ${pResult.message}` };
 		}
 
 		for (let subQ of subQuestions) {
@@ -250,17 +245,86 @@ async function submitGroupQuestionsAPI(block, testId, part) {
 				qFormData.append('test_id', testId);
 				qFormData.append('part', part);
 				qFormData.append('passage_id', passageId);
-				qFormData.append('question_number', subQ.querySelector('.sub-question-number').value);
+				const qNum = subQ.querySelector('.sub-question-number').value;
+				qFormData.append('question_number', qNum);
 				qFormData.append('content', subQ.querySelector('.question-content').value.trim());
-				qFormData.append('correct_answer', subQ.querySelector('input[type="radio"]:checked')?.value);
+				qFormData.append('correct_answer', subQ.querySelector('input[type="radio"]:checked')?.value || '');
 				qFormData.append('explanation', subQ.querySelector('.explanation').value.trim() || null);
 				qFormData.append('options', JSON.stringify(options));
 
 				const qRes = await fetch('/api/questions', { method: 'POST', body: qFormData });
 				const qResult = await qRes.json();
-				qResult.success ? created++ : errors++;
-			} catch (e) { errors++; }
+				if (qResult.success) {
+					created++;
+				} else {
+					errorMessages.push(`Câu ${qNum}: ${qResult.message}`);
+				}
+			} catch (e) { 
+				errorMessages.push("Lỗi kết nối"); 
+			}
 		}
-	} catch (e) { errors++; }
-	return { created, errors };
+		return { 
+			success: errorMessages.length === 0, 
+			created, 
+			message: errorMessages.join(' | ') 
+		};
+	} catch (e) { 
+		return { success: false, created, message: e.message };
+	}
+}
+
+async function submitData(event) {
+	if (event) event.preventDefault();
+
+	const testSelect = document.getElementById('testSelect');
+	const partSelect = document.getElementById('partSelect');
+	if (!testSelect || !partSelect) return;
+
+	const testId = testSelect.value;
+	const part = partSelect.value;
+
+	if (!testId || !part) {
+		return showMessage('Vui lòng chọn đề thi và phần thi trước khi lưu', 'error');
+	}
+
+	const blocks = document.querySelectorAll('.question-block');
+	if (blocks.length === 0) {
+		return showMessage('Không có dữ liệu để lưu', 'warning');
+	}
+
+	showMessage('Đang lưu dữ liệu...', 'info');
+
+	let totalCreated = 0;
+	let errorMessages = [];
+
+	for (let block of blocks) {
+		const isGroup = block.classList.contains('group-type');
+		try {
+			if (isGroup) {
+				const res = await submitGroupQuestionsAPI(block, testId, part);
+				totalCreated += res.created;
+				if (!res.success) {
+					errorMessages.push(`Cụm câu: ${res.message}`);
+				}
+			} else {
+				const qNum = block.querySelector('.question-number')?.value || 'Không số';
+				const res = await submitSingleQuestionAPIWithResult(block, testId, part);
+				if (res.success) {
+					totalCreated++;
+				} else {
+					errorMessages.push(`Câu ${qNum}: ${res.message}`);
+				}
+			}
+		} catch (e) {
+			errorMessages.push("Lỗi hệ thống khi lưu");
+		}
+	}
+
+	if (errorMessages.length === 0) {
+		showMessage(`Đã lưu thành công ${totalCreated} mục!`, 'success');
+		await loadSavedQuestionsToForm();
+	} else {
+		const errorText = errorMessages.length <= 2 ? errorMessages.join(' | ') : `Có ${errorMessages.length} lỗi xảy ra`;
+		showMessage(`Lưu ${totalCreated} mục. Lỗi: ${errorText}`, 'warning');
+	}
 }
