@@ -163,7 +163,7 @@
      */
     async function loadTestsList() {
         try {
-            const response = await fetch('/IS207-UIT/server/index.php?path=/api/tests');
+            const response = await fetch('/api/tests');
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
@@ -299,7 +299,7 @@
             const id = document.getElementById("edit_id").value;
             if (confirm("Bạn có chắc chắn muốn xóa bài thi này không? Dữ liệu không thể khôi phục.")) {
                 try {
-                    const response = await fetch(`/IS207-UIT/server/index.php?path=/api/tests/${id}`, {
+                    const response = await fetch(`/api/tests/${id}`, {
                         method: 'DELETE'
                     });
                     const result = await response.json();
@@ -337,7 +337,7 @@
             
             try {
                 // Gửi PUT request để cập nhật bài thi
-                const response = await fetch(`/IS207-UIT/server/index.php?path=/api/tests/${id}`, {
+                const response = await fetch(`/api/tests/${id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'

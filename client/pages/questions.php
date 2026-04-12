@@ -353,7 +353,7 @@
                     };
                     
                     try {
-                        const response = await fetch('/IS207-UIT/server/index.php?path=/api/tests', {
+                        const response = await fetch('/api/tests', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'

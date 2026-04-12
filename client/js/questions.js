@@ -1,26 +1,22 @@
 /**
- * Tích hợp API cho Hệ thống Quản lý Câu hỏi TOEIC
+ * Tích hợp API cho Hệ thống Quản lý Câu hỏi TOEIC - Phiên bản rút gọn & Sạch
  */
 
-const API_BASE_URL = '/IS207-UIT/server/index.php';
+// Đổi sang đường dẫn sạch nhờ .htaccess
+const API_BASE_URL = '/api';
 
 /**
  * Lấy tất cả các bài kiểm tra hoạt động để lựa chọn trong danh sách thả xuống
- * 
- * @returns {Promise<Array>} Mảng các bài kiểm tra với id và tiêu đề
  */
 async function getTests() {
     try {
-        const response = await fetch(`${API_BASE_URL}?path=/api/tests`, {
-            method: 'GET'
-        });
+        const response = await fetch(`${API_BASE_URL}/tests`);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const result = await response.json();
-
         if (!result.success) {
             throw new Error(result.message || 'Failed to fetch tests');
         }
@@ -33,31 +29,18 @@ async function getTests() {
 }
 
 /**
- * Lấy các đoạn văn được lọc theo test_id
- * 
- * @param {number} testId - ID bài kiểm tra để lọc
- * @returns {Promise<Array>} Mảng các đoạn văn cho bài kiểm tra
+ * Lấy các đoạn văn được lọc theo test_uuid
  */
-async function getPassages(testId) {
+async function getPassages(testUuid) {
     try {
-        if (!testId) {
-            throw new Error('test_id is required');
-        }
-
-        const response = await fetch(`${API_BASE_URL}?path=/api/passages&test_id=${testId}`, {
-            method: 'GET'
-        });
+        // Sử dụng UUID thay cho ID
+        const response = await fetch(`${API_BASE_URL}/passages/${testUuid}`);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const result = await response.json();
-
-        if (!result.success) {
-            throw new Error(result.message || 'Failed to fetch passages');
-        }
-
         return result.data || [];
     } catch (error) {
         console.error('Error fetching passages:', error);
@@ -66,25 +49,16 @@ async function getPassages(testId) {
 }
 
 /**
- * Tạo một câu hỏi mới với các tệp phương tiện tùy chọn
- * 
- * @param {FormData} formData - Dữ liệu biểu mẫu chứa chi tiết câu hỏi và các tệp
- * @returns {Promise<Object>} {success: bool, question_id: int, message: string}
+ * Tạo một câu hỏi mới
  */
 async function createQuestion(formData) {
     try {
-        const response = await fetch(API_BASE_URL, {
+        const response = await fetch(`${API_BASE_URL}/questions`, {
             method: 'POST',
             body: formData
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-
-        return result;
+        return await response.json();
     } catch (error) {
         console.error('Error creating question:', error);
         throw error;
@@ -92,25 +66,16 @@ async function createQuestion(formData) {
 }
 
 /**
- * Tạo một đoạn văn mới với phương tiện tùy chọn
- * 
- * @param {FormData} formData - Dữ liệu biểu mẫu chứa chi tiết đoạn văn và các tệp
- * @returns {Promise<Object>} {success: bool, passage_id: int, message: string}
+ * Tạo một đoạn văn mới
  */
 async function createPassage(formData) {
     try {
-        const response = await fetch(API_BASE_URL, {
+        const response = await fetch(`${API_BASE_URL}/passages`, {
             method: 'POST',
             body: formData
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-
-        return result;
+        return await response.json();
     } catch (error) {
         console.error('Error creating passage:', error);
         throw error;
@@ -119,27 +84,14 @@ async function createPassage(formData) {
 
 /**
  * Xóa một câu hỏi
- * 
- * @param {number} questionId - ID câu hỏi cần xóa
- * @returns {Promise<Object>} {success: bool, message: string}
  */
 async function deleteQuestion(questionId) {
     try {
-        if (!questionId) {
-            throw new Error('question_id is required');
-        }
-
-        const response = await fetch(`${API_BASE_URL}?path=/api/questions/${questionId}`, {
+        const response = await fetch(`${API_BASE_URL}/questions/${questionId}`, {
             method: 'DELETE'
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-
-        return result;
+        return await response.json();
     } catch (error) {
         console.error('Error deleting question:', error);
         throw error;
@@ -148,27 +100,14 @@ async function deleteQuestion(questionId) {
 
 /**
  * Xóa một đoạn văn
- * 
- * @param {number} passageId - ID đoạn văn cần xóa
- * @returns {Promise<Object>} {success: bool, message: string}
  */
 async function deletePassage(passageId) {
     try {
-        if (!passageId) {
-            throw new Error('passage_id is required');
-        }
-
-        const response = await fetch(`${API_BASE_URL}?path=/api/passages/${passageId}`, {
+        const response = await fetch(`${API_BASE_URL}/passages/${passageId}`, {
             method: 'DELETE'
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-
-        return result;
+        return await response.json();
     } catch (error) {
         console.error('Error deleting passage:', error);
         throw error;
@@ -177,66 +116,15 @@ async function deletePassage(passageId) {
 
 /**
  * Lấy tất cả các câu hỏi cho một bài kiểm tra
- * 
- * @param {number} testId - ID bài kiểm tra để lọc
- * @returns {Promise<Array>} Mảng các câu hỏi cho bài kiểm tra
  */
-async function getQuestionsByTest(testId) {
+async function getQuestionsByTest(testUuid) {
     try {
-        if (!testId) {
-            throw new Error('test_id is required');
-        }
-
-        const response = await fetch(`${API_BASE_URL}?path=/api/questions&test_id=${testId}`, {
-            method: 'GET'
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        const response = await fetch(`${API_BASE_URL}/questions/${testUuid}`);
 
         const result = await response.json();
-
-        if (!result.success) {
-            throw new Error(result.message || 'Failed to fetch questions');
-        }
-
         return result.data || [];
     } catch (error) {
         console.error('Error fetching questions:', error);
-        throw error;
-    }
-}
-
-/**
- * Lấy một câu hỏi duy nhất theo ID
- * 
- * @param {number} questionId - ID câu hỏi
- * @returns {Promise<Object>} Dữ liệu câu hỏi
- */
-async function getQuestion(questionId) {
-    try {
-        if (!questionId) {
-            throw new Error('question_id is required');
-        }
-
-        const response = await fetch(`${API_BASE_URL}?path=/api/questions/${questionId}`, {
-            method: 'GET'
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-
-        if (!result.success) {
-            throw new Error(result.message || 'Failed to fetch question');
-        }
-
-        return result.data;
-    } catch (error) {
-        console.error('Error fetching question:', error);
         throw error;
     }
 }

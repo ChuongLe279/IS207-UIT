@@ -236,7 +236,7 @@ class FileHandler {
         }
 
         // Trả về đường dẫn tương đối để lưu trong database (truy cập qua server/uploads/)
-        return "/IS207-UIT/server/uploads/{$directory}/{$filename}";
+        return "/server/uploads/{$directory}/{$filename}";
     }
 
     /**
